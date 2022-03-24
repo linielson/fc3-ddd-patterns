@@ -1,9 +1,8 @@
-// ENTIDADE ANÊMICA
-
 class Customer {
   _id: string;
   _name: string;
   _address: string;
+  _active: boolean = true;
 
   constructor(id: string, name: string, address: string) {
     this._id = id;
@@ -23,11 +22,24 @@ class Customer {
     return this._address;
   }
 
-  set name(name: string) {
+  changeName(name: string) {
     this._name = name;
+    // rule, validation, business logic
   }
 
-  set address(address: string) {
+  changeAddress(address: string) {
     this._address = address;
+    // rule, validation, business logic
+  }
+
+  activate() {
+    this._active = true;
+    // rule, validation, business logic
+  }
+
+  desactivate() {
+    this._active = false;
+    // rule, validation, business logic
+    // i.e: customer no pay
   }
 }
