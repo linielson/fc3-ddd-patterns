@@ -1,13 +1,24 @@
-class Customer {
-  _id: string;
-  _name: string;
-  _address: string;
-  _active: boolean = true;
+import Address from "./address";
 
-  constructor(id: string, name: string, address: string) {
+export default class Customer {
+  private _id: string;
+  private _name: string = "";
+  private _address!: Address;
+  private _active: boolean = false;
+
+  constructor(id: string, name: string) {
     this._id = id;
     this._name = name;
-    this._address = address;
+    this.validate();
+  }
+
+  validate() {
+    if (this._id.length === 0) {
+      throw new Error("Id is required");
+    }
+    if (this._name.length === 0) {
+      throw new Error("Name is required");
+    }
   }
 
   get id(): string {
@@ -18,28 +29,31 @@ class Customer {
     return this._name;
   }
 
-  get address(): string {
+  changeName(name: string) {
+    this._name = name;
+    this.validate();
+  }
+
+  get Address(): Address {
     return this._address;
   }
 
-  changeName(name: string) {
-    this._name = name;
-    // rule, validation, business logic
+  changeAddress(address: Address) {
+    this._address = address;
   }
 
-  changeAddress(address: string) {
-    this._address = address;
-    // rule, validation, business logic
+  isActive(): boolean {
+    return this._active;
   }
 
   activate() {
+    if (this._address === undefined) {
+      throw new Error("Address is mandatory to activate a customer");
+    }
     this._active = true;
-    // rule, validation, business logic
   }
 
-  desactivate() {
+  deactivate() {
     this._active = false;
-    // rule, validation, business logic
-    // i.e: customer no pay
   }
 }
